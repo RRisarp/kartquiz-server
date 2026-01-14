@@ -8,13 +8,13 @@ const server = http.createServer(app);
 
 // Konfigurera CORS för både Express och Socket.io
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:3001', 'https://kartquiz-frontend-production.up.railway.app'],
+  origin: ['http://localhost:3000', 'http://localhost:3001'],
   credentials: true
 }));
 
 const io = socketIo(server, {
   cors: {
-    origin: ['http://localhost:3000', 'http://localhost:3001', 'https://kartquiz-frontend-production.up.railway.app'],
+    origin: ['http://localhost:3000', 'http://localhost:3001'],
     methods: ['GET', 'POST'],
     credentials: true
   }
@@ -134,7 +134,8 @@ io.on('connection', (socket) => {
         totalQuestions: room.questions.length,
         text: question.text,
         imageUrl: question.imageUrl,
-        maxDistance: question.maxDistance
+        maxDistance: question.maxDistance,
+        timeLimit: question.timeLimit || 0
       };
 
       io.to(roomCode).emit('quiz-started', questionData);
@@ -237,7 +238,8 @@ io.on('connection', (socket) => {
           totalQuestions: room.questions.length,
           text: question.text,
           imageUrl: question.imageUrl,
-          maxDistance: question.maxDistance
+          maxDistance: question.maxDistance,
+          timeLimit: question.timeLimit || 0
         };
 
         io.to(roomCode).emit('next-question-ready', questionData);
