@@ -134,6 +134,7 @@ io.on('connection', (socket) => {
         totalQuestions: room.questions.length,
         text: question.text,
         imageUrl: question.imageUrl,
+        audioUrl: question.audioUrl,
         maxDistance: question.maxDistance,
         timeLimit: question.timeLimit || 0
       };
@@ -238,6 +239,7 @@ io.on('connection', (socket) => {
           totalQuestions: room.questions.length,
           text: question.text,
           imageUrl: question.imageUrl,
+          audioUrl: question.audioUrl,
           maxDistance: question.maxDistance,
           timeLimit: question.timeLimit || 0
         };
